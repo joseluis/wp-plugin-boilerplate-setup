@@ -29,14 +29,13 @@ fi
 
 
 # Check needed software
-command -v curl >/dev/null 2>&1 || {
-	# TODO: check for wget
-	echo "Error: You need curl installed to be able to download the boilerplate"
+command -v wget >/dev/null 2>&1 || {
+	echo "Error: You need wget installed to be able to download the boilerplate"
 	exit
 }
 command -v iconv >/dev/null 2>&1 || {
-	# TODO: check for the absence of special characters
-	echo "Error: You need iconv installed"
+	# TODO: check for the absence of special characters 
+	echo "Error: You need iconv installed to convert non-ascii characters"
 	exit
 }
 
@@ -86,6 +85,7 @@ fi
 
 # Download the boilerplate
 ##
+
 DEFAULTDIRNAME="WordPress-Plugin-Boilerplate-master"
 echo "Downloading the boilerplate . . ."
 wget https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/archive/master.zip -O master.zip
@@ -99,6 +99,7 @@ cd ${NEWNAME}
 
 # Rename the Files
 ##
+
 echo "Renaming files . . . "
 find . -name "*${DEFAULTNAME}*" | while read FILE ; do
 	echo "Renaming \"${FILE}\" . . ."
@@ -110,6 +111,7 @@ echo "Done !"
 
 # Replace the Strings (functions, methods, etc)
 ##
+
 echo -n "Renaming variables, functions, classes . . . "
 find . -type f -print0 | xargs -0 sed -i "s/${DEFAULTNAME}/${NEWNAME}/g"
 find . -type f -print0 | xargs -0 sed -i "s/${DEFAULTNAME_UND}/${NEWNAME_UND}/g"
